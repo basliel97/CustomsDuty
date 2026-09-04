@@ -1,0 +1,103 @@
+Part 1: The Core Ethiopian Customs Tax Mathematics (Business Logic)
+
+Customs taxes in Ethiopia are cascading (each tax builds on top of the previous taxes).
+code Code
+
+[FOB Price + Freight + Insurance (in Foreign Currency)]
+                             │
+                             ▼  × NBE Exchange Rate
+                   [Total CIF Value in ETB]
+                             │
+            ┌────────────────┴────────────────┐
+            ▼                                 ▼
+   [Customs Duty (ቀረጥ)]               [Withholding Tax (3%)]
+   (CIF × Duty Rate)                   (CIF × 3%)
+            │
+            ▼
+     [Excise Base] = (CIF + Customs Duty)
+            │
+            ▼
+   [Excise Tax Amount] = (Excise Base × Excise Rate)
+            │
+            ▼
+    [VAT & Sur-Tax Base] = (CIF + Customs Duty + Excise Tax)
+            │
+            ├─────────────────────────────────┐
+            ▼                                 ▼
+   [VAT Amount (15%)]                [Sur-Tax Amount (10%)]
+   (Base × 15%)                       (Base × 10%)
+            │                                 │
+            └────────────────┬────────────────┘
+                             ▼
+  [Total Payable Tax] = Duty + Excise + VAT + Sur-Tax + Withholding + Scanning Fee
+
+1. The Calculation Steps (Formulas):
+
+    CIF Calculation (in ETB):
+
+            
+    CIF (ETB)=(FOB Value+Freight+Insurance)×NBE Exchange Rate
+    CIF (ETB)=(FOB Value+Freight+Insurance)×NBE Exchange Rate
+
+          
+
+    Customs Duty (ቀረጥ):
+
+            
+    Customs Duty=CIF (ETB)×Duty Rate (0%, 5%, 10%, 20%, or 35%)
+    Customs Duty=CIF (ETB)×Duty Rate (0%, 5%, 10%, 20%, or 35%)
+
+          
+
+    Excise Tax (ኤክሳይስ ታክስ):
+
+            
+    Excise Tax=(CIF+Customs Duty)×Excise Rate (0% to 100+%)
+    Excise Tax=(CIF+Customs Duty)×Excise Rate (0% to 100+%)
+
+          
+
+    VAT (የተጨማሪ እሴት ታክስ - 15%):
+
+            
+    VAT=(CIF+Customs Duty+Excise Tax)×15%
+    VAT=(CIF+Customs Duty+Excise Tax)×15%
+
+          
+
+    Sur-Tax (ሰር ታክስ - 10%):
+
+            
+    Sur-Tax=(CIF+Customs Duty+Excise Tax)×10%
+    Sur-Tax=(CIF+Customs Duty+Excise Tax)×10%
+
+          
+
+
+    (Applies to most commercial goods; exempt for certain essential foods/medicines).
+
+    Withholding Tax (የቅድሚያ ግብር - 3%):
+
+            
+    Withholding=CIF (ETB)×3%
+    Withholding=CIF (ETB)×3%
+
+          
+
+    Total Payable Tax:
+
+            
+    Total Tax=Duty+Excise+VAT+Sur-Tax+Withholding+Flat Admin/Scanning Fee (e.g., 200 ETB)
+    Total Tax=Duty+Excise+VAT+Sur-Tax+Withholding+Flat Admin/Scanning Fee (e.g., 200 ETB)
+
+          
+
+2. Special Exemption Rules (Privilege Logic):
+
+    Standard Commercial: All taxes apply.
+
+    Diaspora Incentive (Duty-Free Privilege): Duty = 0, Excise = 0, Sur-Tax = 0; only VAT and flat administrative fees apply depending on the specific item directive.
+
+    Investment Commission (EIC) Privilege: Duty and Sur-tax waived for approved capital goods / manufacturing raw materials.
+
+    Diplomatic / UN: 100% tax exemption across all categories.

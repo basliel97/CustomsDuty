@@ -1,0 +1,29 @@
+Part 5: UI/UX & Layout Architecture (Next.js)
+
+    Public Portal / Quick Calculator:
+
+        Clean search bar with instant autocomplete for 8-digit HS Codes.
+
+        Input cards for Currency, FOB, Freight, Insurance.
+
+        Real-time breakdown card showing visual progress bars for each tax component.
+
+    Valuation Officer Workspace:
+
+        Dashboard showing: Pending Assessments, Approved Today, Total Revenue Processed.
+
+        Split-screen assessment view: Left side = Importer declaration details; Right side = Live recalculation and approval buttons.
+
+    Official PDF Assessment Sheet Layout:
+
+        Top Header: Official Ethiopian Customs Commission Logo and Branch title.
+
+        Section 1: Declaration Metadata (Assessment No, Date, Declarant TIN, Officer Badge).
+
+        Section 2: Itemized Table with HS Codes, CIF, Duty, Excise, VAT, and Subtotals.
+
+        Section 3: Summary Box with Total Payable in Words and Numbers (ETB).
+
+        Bottom Right: Officer Digital Stamp & Signature block.
+
+        Bottom Left: Scannable Verification QR Code.

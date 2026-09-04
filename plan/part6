@@ -1,0 +1,12 @@
+Part 6: Phased Implementation Plan (Sprint Breakdown)
+
+    Phase 1 (Foundation): Set up Hono backend + Drizzle ORM + PostgreSQL schema + seed Ethiopian HS Codes & Forex tables.
+
+    Phase 2 (Calculation Engine): Implement pure TypeScript tax logic functions with unit tests matching exact Ethiopian customs math.
+
+    Phase 3 (Auth & RBAC): Implement JWT authentication, role middleware, and CRUD endpoints for HS codes and Forex rates.
+
+    Phase 4 (Frontend Calculator & Dashboards): Build the Next.js UI (Public Calculator, Officer Workspace, Admin Settings).
+
+    Phase 5 (PDF & QR Verification): Server-side PDF generation + QR verification endpoint + Audit logging.
+

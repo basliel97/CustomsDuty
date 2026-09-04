@@ -1,0 +1,29 @@
+Part 4: System Workflows & User Journeys
+code Code
+
+[Importer/Officer]             [Tax Engine]                [Valuation Officer]
+        │                            │                              │
+        │── 1. Select HS Code ───────▶│                              │
+        │── 2. Enter FOB + Forex ────▶│                              │
+        │                            │── 3. Run Tax Formulas ────┐   │
+        │                            │◀── Calculated Breakdown ──┘   │
+        │                                                            │
+        │── 4. Submit for Official Assessment ──────────────────────▶│
+        │                                                            │── 5. Inspect & Verify
+        │                                                            │── 6. Approve Assessment
+        │                                                                   │
+        │◀── 7. Generate Official PDF Notice with Verification QR ──────────┘
+
+The QR Verification Workflow:
+
+    When an assessment is approved, the system generates a Signed QR Code.
+
+    A customs exit gate officer or bank cashier scans the QR code with their mobile device.
+
+    The scanner immediately opens a verified verification page showing:
+
+        Status: PAID & CLEARED (Green) or UNDER REVIEW (Yellow) or FRAUD/INVALID (Red).
+
+        Declarant Name & TIN.
+
+        Total Tax Paid.

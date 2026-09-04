@@ -1,0 +1,66 @@
+Part 2: Database Schema & Entity Design
+Table 1: users (Authentication & Access Control)
+
+    Fields: id, email, password_hash, full_name, badge_number, branch_location (e.g., Bole Airport, Kality), role, status (ACTIVE, SUSPENDED), created_at, updated_at.
+
+    Purpose: Manages all system actors (Admins, Valuation Officers, Importers).
+
+Table 2: hs_codes (Harmonized Tariff Matrix)
+
+    Fields:
+
+        code: 8-digit standard code (e.g., 8517.13.00 for Smartphones, 8703.23.90 for SUV Vehicles).
+
+        description_en & description_am: English and Amharic descriptions.
+
+        unit_of_measurement: (e.g., Number of Items (U), Kilograms (KG), Liters (L)).
+
+        duty_rate: Decimal rate (e.g., 0.35 for 35%).
+
+        excise_rate: Decimal rate (e.g., 0.10 for 10%, 0.30 for vehicles).
+
+        vat_rate: Default 0.15 (15%).
+
+        surtax_rate: Default 0.10 (10%).
+
+        withholding_rate: Default 0.03 (3%).
+
+        is_exempt_eligible: Boolean flag.
+
+Table 3: forex_rates (Daily National Bank of Ethiopia Rates)
+
+    Fields: id, currency (USD, EUR, GBP, AED, CNY, CAD), exchange_rate_to_etb, effective_date, set_by_user_id, created_at.
+
+    Rule: Stores a daily rate. Each assessment locks the exact rate used on that date for historical audit integrity.
+
+Table 4: assessments (Master Declaration / Assessment Header)
+
+    Fields:
+
+        assessment_number: Unique serial (e.g., ECC-ADD-2026-001245).
+
+        declarant_name, declarant_tin, declarant_passport_no.
+
+        branch_location: (e.g., Bole Airport Cargo, Passenger Terminal, Kality).
+
+        currency: Original currency selected.
+
+        exchange_rate_applied: Snapshot of the forex rate.
+
+        total_cif_etb, total_duty_etb, total_excise_etb, total_vat_etb, total_surtax_etb, total_withholding_etb, total_payable_etb.
+
+        status: DRAFT, SUBMITTED, APPROVED, REJECTED, PAID.
+
+        exemption_type: NONE, DIASPORA, INVESTMENT, DIPLOMATIC.
+
+        reviewed_by_officer_id: Foreign key to users.
+
+        qr_verification_hash: Unique cryptographic token for validation.
+
+Table 5: assessment_items (Itemized Lines per Consignment)
+
+    Fields: id, assessment_id, hs_code_id, item_description, quantity, unit_price_foreign, cif_etb, duty_amount, excise_amount, vat_amount, surtax_amount, withholding_amount, total_item_tax_etb.
+
+Table 6: audit_logs (Immutable Security Audit Trail)
+
+    Fields: id, user_id, action (RATE_MODIFIED, ASSESSMENT_APPROVED, HS_CODE_ADDED), entity_name, entity_id, old_values (JSON), new_values (JSON), ip_address, timestamp.

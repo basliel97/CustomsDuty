@@ -1,0 +1,36 @@
+{
+  "name": "customs-duty-pro",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "test:unit": "turbo test:unit",
+    "test:integration": "turbo test:integration",
+    "test:e2e": "turbo test:e2e",
+    "db:generate": "pnpm --filter @customs-duty-pro/api db:generate",
+    "db:migrate": "pnpm --filter @customs-duty-pro/api db:migrate",
+    "db:seed": "pnpm --filter @customs-duty-pro/api db:seed",
+    "db:studio": "pnpm --filter @customs-duty-pro/api db:studio",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\""
+  },
+  "devDependencies": {
+    "turbo": "^2.3.0",
+    "prettier": "^3.4.0",
+    "typescript": "^5.7.0"
+  },
+  "packageManager": "pnpm@10.14.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "bcrypt",
+      "esbuild",
+      "unrs-resolver"
+    ]
+  }
+}

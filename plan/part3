@@ -1,0 +1,10 @@
+Part 3: Role-Based Access Control (RBAC) Matrix
+Feature / Action	Importer (Public)	Valuation Officer (Airport)	Tariff Specialist (HQ)	Super Admin
+Search HS Codes & Rates	✅	✅	✅	✅
+Run Self-Assessments (Drafts)	✅	✅	✅	✅
+Submit Official Assessment	✅	✅	❌	❌
+Approve/Reject & Sign Off	❌	✅	❌	✅
+Edit HS Codes & Tax Rates	❌	❌	✅	✅
+Update Daily Forex Rates	❌	❌	✅	✅
+View System Audit Logs	❌	❌	❌	✅
+User & Role Management	❌	❌	❌	✅
