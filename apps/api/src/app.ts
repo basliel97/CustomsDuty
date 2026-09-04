@@ -5,6 +5,8 @@ import { requestId } from "hono/request-id";
 import { config } from "./lib/config.js";
 import { errorHandler } from "./middleware/error-handler.js";
 import { healthRoutes } from "./routes/health.js";
+import { authRoutes } from "./modules/auth/routes.js";
+import { userRoutes } from "./modules/users/routes.js";
 
 const app = new Hono();
 
@@ -15,7 +17,7 @@ app.use(
   "*",
   cors({
     origin: config.CORS_ORIGIN,
-    allowMethods: ["GET", "POST", "PUT", "DELETE"],
+    allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowHeaders: ["Content-Type", "Authorization", "Idempotency-Key"],
     credentials: true,
     maxAge: 86400,
@@ -40,6 +42,8 @@ app.onError(errorHandler);
 
 // Routes
 app.route("/api/health", healthRoutes);
+app.route("/api/v1/auth", authRoutes);
+app.route("/api/v1/users", userRoutes);
 
 // 404 handler
 app.notFound((c) => {
