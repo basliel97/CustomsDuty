@@ -7,6 +7,16 @@ import { errorHandler } from "./middleware/error-handler.js";
 import { healthRoutes } from "./routes/health.js";
 import { authRoutes } from "./modules/auth/routes.js";
 import { userRoutes } from "./modules/users/routes.js";
+import { hsCodeRoutes } from "./modules/hs-codes/routes.js";
+import { forexRoutes } from "./modules/forex/routes.js";
+import { calcRoutes } from "./modules/calculator/routes.js";
+import { assessmentRoutes } from "./modules/assessments/routes.js";
+import { notifRoutes } from "./modules/notifications/routes.js";
+import { verifyRoutes } from "./modules/verify/routes.js";
+import { auditRoutes } from "./modules/audit/routes.js";
+import { dashboardRoutes } from "./modules/dashboard/routes.js";
+import { reportRoutes } from "./modules/reports/routes.js";
+import { rateLimit } from "./middleware/rate-limit.js";
 
 const app = new Hono();
 
@@ -37,6 +47,9 @@ app.use("*", async (c, next) => {
   }
 });
 
+// Global rate limiting (spec 4.2): authenticated 120/min, anonymous keyed by IP.
+app.use("/api/v1/*", rateLimit({ limit: 120, windowMs: 60_000 }));
+
 // Error handler
 app.onError(errorHandler);
 
@@ -44,6 +57,15 @@ app.onError(errorHandler);
 app.route("/api/health", healthRoutes);
 app.route("/api/v1/auth", authRoutes);
 app.route("/api/v1/users", userRoutes);
+app.route("/api/v1/hs-codes", hsCodeRoutes);
+app.route("/api/v1/forex", forexRoutes);
+app.route("/api/v1/calculate", calcRoutes);
+app.route("/api/v1/assessments", assessmentRoutes);
+app.route("/api/v1/notifications", notifRoutes);
+app.route("/api/v1/verify", verifyRoutes);
+app.route("/api/v1/audit", auditRoutes);
+app.route("/api/v1/dashboard", dashboardRoutes);
+app.route("/api/v1/reports", reportRoutes);
 
 // 404 handler
 app.notFound((c) => {

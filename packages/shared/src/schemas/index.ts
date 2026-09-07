@@ -79,12 +79,23 @@ export const createHsCodeSchema = z.object({
   is_raw_material: z.boolean().default(false),
 });
 
+export const updateHsCodeSchema = createHsCodeSchema
+  .partial()
+  .omit({ code: true });
+
 // Forex schemas
 export const createForexRateSchema = z.object({
   currency: z.enum(CURRENCIES),
   exchange_rate_to_etb: z.number().positive("Rate must be positive"),
   effective_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   source: z.string().default("NBE"),
+  notes: z.string().optional(),
+});
+
+export const correctForexRateSchema = z.object({
+  exchange_rate_to_etb: z.number().positive("Rate must be positive").optional(),
+  effective_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  source: z.string().optional(),
   notes: z.string().optional(),
 });
 
