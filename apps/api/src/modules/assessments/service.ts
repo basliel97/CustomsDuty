@@ -79,6 +79,7 @@ export interface AssessmentDto {
   reviewed_at: string | null;
   rejection_reason: string | null;
   paid_at: string | null;
+  qr_verification_hash: string | null;
   created_at: string;
   items?: AssessmentItemDto[];
 }
@@ -111,6 +112,7 @@ function toDto(row: AssessmentRow): AssessmentDto {
     reviewed_at: row.reviewed_at ? row.reviewed_at.toISOString() : null,
     rejection_reason: row.rejection_reason,
     paid_at: row.paid_at ? row.paid_at.toISOString() : null,
+    qr_verification_hash: row.qr_verification_hash ?? null,
     created_at: row.created_at.toISOString(),
   };
 }

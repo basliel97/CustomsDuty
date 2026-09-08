@@ -3,6 +3,7 @@ import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { createAssessmentSchema } from "@customs-duty-pro/shared";
 import * as assessmentService from "./service.js";
+import { generateAssessmentPdf } from "./pdf.js";
 import { parsePagination, ok, okList, paginationMeta } from "../../lib/http.js";
 import { authMiddleware } from "../../middleware/auth.js";
 import type { AppVariables } from "../../middleware/auth.js";
@@ -149,6 +150,16 @@ assessmentRoutes.get("/:id", authMiddleware, async (c) => {
   const id = c.req.param("id")!;
   const data = await assessmentService.getAssessmentDetail(id);
   return c.json(ok(data));
+});
+
+assessmentRoutes.get("/:id/pdf", authMiddleware, requirePermission("assessment:download_pdf"), async (c) => {
+  const id = c.req.param("id")!;
+  const { buffer, filename } = await generateAssessmentPdf(id);
+  const arrayBuffer = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength) as ArrayBuffer;
+  c.header("Content-Type", "application/pdf");
+  c.header("Content-Disposition", `attachment; filename="${filename}"`);
+  c.header("Content-Length", String(buffer.byteLength));
+  return c.body(arrayBuffer);
 });
 
 export { assessmentRoutes };
